@@ -1,5 +1,6 @@
 package com.javaex.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,10 +8,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.javaex.dao.PhonebookDao;
 import com.javaex.vo.PersonVo;
 
 @Controller
 public class phonebookController {
+	
+	@Autowired
+    private PhonebookDao phonebookDao;
 	
 	//필드
 	//생성자
