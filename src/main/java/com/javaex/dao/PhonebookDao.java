@@ -8,8 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 import com.javaex.vo.PersonVo;
 
+@Repository
 public class PhonebookDao {
 	
 	// 필드
@@ -104,7 +107,9 @@ public class PhonebookDao {
 	
 	//사랑 정보 수정하기 1명
 	public int updatePerson(PersonVo personVo) {
-		int count = -1;
+		int count = 0;
+		
+		System.out.println("update : " + personVo);
 		
 		this.getConnection();
 		
