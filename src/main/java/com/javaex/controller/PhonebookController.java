@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.dao.PhonebookDao;
+import com.javaex.service.PhonebookService;
 import com.javaex.vo.PersonVo;
 
 
@@ -22,8 +23,12 @@ public class PhonebookController {
 	
 	//필드
 	//dao를 메모리에 올린다
+	/*
 	@Autowired
-	private PhonebookDao phonebookDao;
+	private PhonebookDao phonebookDao;*/
+	
+	@Autowired
+	private PhonebookService phonebookService;
 	
 	
 	//생성자
@@ -46,14 +51,23 @@ public class PhonebookController {
 		
 		System.out.println("phonebookController.editform()");
 		
+		phonebookService.exePersonEdit(personVo);
+		
+		
+		
+		
+		
+		
+		
+		
 		//System.out.println(no);
 		
 		//메소드를 이용해서 저장한다
 		//PersonVo personVo = phonebookDao.getPersonOne(Integer.parseInt(no));
-		System.out.println("edit : " + personVo);
+		//System.out.println("edit : " + personVo);
 		
-		int count = phonebookDao.updatePerson(personVo);
-		System.out.println(count);
+		//int count = phonebookDao.updatePerson(personVo);
+		//System.out.println(count);
 
 		
 		return "redirect:/list";
@@ -66,15 +80,24 @@ public class PhonebookController {
 		
 		System.out.println("phonebookController.editform()");
 		
-		System.out.println(no);
+		PersonVo personVo = phonebookService.exeGetPersonOne(no);
+		
+		model.addAttribute("personVo", personVo);
+		
+		
+		
+		
+		
+		
+		//System.out.println(no);
 
 		
 		//메소드를 이용해서 저장한다
-		PersonVo personVo = phonebookDao.getPersonOne(no);
-		System.out.println("editform: " + personVo);
+		//PersonVo personVo = phonebookDao.getPersonOne(no);
+		//System.out.println("editform: " + personVo);
 		
 		//
-		model.addAttribute("personVo", personVo);
+		//model.addAttribute("personVo", personVo);
 		
 		return "editForm";
 		//return "/WEB-INF/views/editForm.jsp";
@@ -87,12 +110,20 @@ public class PhonebookController {
 		
 		System.out.println("phonebookController.delete()");
 		
-		System.out.println(no);
-
+		int c = phonebookService.exePersonDelete(Integer.parseInt(no));
+		System.out.println(c);
+		
+		
+		
+		
+		
+		
+		//System.out.println(no);
+  
 		
 		//메소드를 이용해서 저장한다
-		int count = phonebookDao.deletePerson(Integer.parseInt(no));
-		System.out.println(count);		
+		//int count = phonebookDao.deletePerson(Integer.parseInt(no));
+		//System.out.println(count);		
 		
 		//리스트로 리다이렉트
 		return "redirect:/list";
@@ -113,15 +144,26 @@ public class PhonebookController {
 	//Vo로 받을떄
 	@RequestMapping ( value="/write", method={RequestMethod.GET, RequestMethod.POST}  )
 	public String write ( @ModelAttribute PersonVo personVo ) {
+	
+		int c = phonebookService.exeWritePerson(personVo);
 		
-		System.out.println("phonebookController.write()");
+		System.out.println("c:" + c);
+		
+		
+		
+		
+		
+		
+		
+		
+		//System.out.println("phonebookController.write()");
 		
 		//System.out.println(personVo);
 
 		
 		//메소드를 이용해서 저장한다
-		int count = phonebookDao.insertPerson(personVo);
-		System.out.println(count);
+		//int count = phonebookDao.insertPerson(personVo);
+		//System.out.println(count);
 		
 		//리스트로 리다이렉트
 		return "redirect:/list";
@@ -149,15 +191,22 @@ public class PhonebookController {
 	
 	@RequestMapping ( value="/list", method={RequestMethod.GET, RequestMethod.POST}  )
 	public String list ( Model model ) {
+		
 		System.out.println("phonebookController.list()");
+		
+		List<PersonVo> personList = phonebookService.exeGetPersonList();
+		
+		model.addAttribute("personList", personList);
+		
+		
 		
 
 		
 		//메소드를 이용해서 저장한다
-		List<PersonVo> personList = phonebookDao.getPersonList();
+		//List<PersonVo> personList = phonebookDao.getPersonList();
 		//System.out.println(personList);
 		
-		model.addAttribute("personList", personList);
+		//model.addAttribute("personList", personList);
 		
 		//리스트로 리다이렉트		
 		//return "/WEB-INF/views/list.jsp";

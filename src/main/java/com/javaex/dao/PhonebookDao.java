@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.javaex.vo.PersonVo;
@@ -16,6 +18,11 @@ import com.javaex.vo.PersonVo;
 public class PhonebookDao {
 	
 	// 필드
+	
+	@Autowired
+	private SqlSession sqlSession;
+	
+	
 	private Connection conn = null;
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
@@ -33,6 +40,7 @@ public class PhonebookDao {
 	
 	//메소드 일반
 	// DB연결 메소드
+	/*
 	private void getConnection() {
 		try {
 			// 1. JDBC 드라이버 (Oracle) 로딩
@@ -66,10 +74,16 @@ public class PhonebookDao {
 			System.out.println("error:" + e);
 		}
 	}
+	*/
 
 	public int deletePerson(int no) {
 		
-		System.out.println("deletePerson()");
+		System.out.println("phonebookDao.deletePerson()");
+		
+		int count = sqlSession.delete("phonebook.delete", no);
+		
+		
+		/*
 		System.out.println(no);
 		int count = -1;
 		
@@ -98,7 +112,7 @@ public class PhonebookDao {
 		}
 		
 		this.close();
-		
+		*/
 		
 		return count;
 	}
@@ -107,6 +121,12 @@ public class PhonebookDao {
 	
 	//사랑 정보 수정하기 1명
 	public int updatePerson(PersonVo personVo) {
+		
+		System.out.println("phonebookDao.updatePerson()");
+		
+		int count = sqlSession.update("phonebook.update", personVo);
+		
+		/*
 		int count = 0;
 		
 		System.out.println("update : " + personVo);
@@ -141,6 +161,7 @@ public class PhonebookDao {
 		}
 		
 		this.close();
+		*/
 		
 		return count;
 	}
@@ -148,6 +169,14 @@ public class PhonebookDao {
 	
 	//사람 1명 정보 가져오기
 	public PersonVo getPersonOne(int no) {
+		
+		System.out.println("phonebookDao.getPersonOne()");
+		
+		PersonVo personVo = sqlSession.selectOne("phonebook.selectOne", no);
+		
+		
+		/*		
+		
 		PersonVo personVo = null;
 		
 		this.getConnection();
@@ -186,6 +215,8 @@ public class PhonebookDao {
 		
 		this.close();
 		
+		*/
+		
 		return personVo;
 	}
 	
@@ -193,6 +224,12 @@ public class PhonebookDao {
 	//사람정보 저장
 	public int insertPerson(PersonVo personVo) {
 		
+		System.out.println("phonebookDao.insertPerson()");
+		
+		int count = sqlSession.insert("phonebook.insert", personVo);
+		
+		
+		/*
 		int count = -1;
 		
 		this.getConnection();
@@ -221,6 +258,8 @@ public class PhonebookDao {
 		this.close();
 		System.out.println(count);
 		
+		*/
+		
 		return count;
 		
 	}
@@ -229,6 +268,16 @@ public class PhonebookDao {
 	
 	//리스트 가져오기
 	public List<PersonVo> getPersonList() {
+		
+		System.out.println("phonebookDao.getPersonList()");
+		
+		List<PersonVo> personList = sqlSession.selectList("phonebook.selectList");
+		
+		System.out.println("===============");
+		System.out.println(personList);
+		System.out.println("===============");
+		
+		/*
 		
 		List<PersonVo> personList = new ArrayList<PersonVo>();
 		
@@ -267,6 +316,8 @@ public class PhonebookDao {
 		}
 		
 		this.close();
+		
+		*/
 		
 		return personList;
 		
