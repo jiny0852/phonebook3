@@ -9,9 +9,18 @@
 
 	<!-- 쿼리문작성 -->
 	
+	<resultMap id="resultMapPersonVo" type="com.javaex.vo.PersonVo">
+
+		<result column="person_id" property="personId" />
+		<result column="name" property="name" />
+		<result column="hp" property="hp" />
+		<result column="company" property="company" />
+
+	</resultMap>
+	
 
 	<!-- 삭제 -->
-	<delete id="delete" parameterType="int">
+	<delete id="delete" parameterType="map">
 	
 		<![CDATA[
 
@@ -35,9 +44,20 @@
 
 	</insert>
 	
+	<insert id="insert2" parameterType="map">
+	
+		<![CDATA[
+
+			insert into person
+			values (null, #{name}, #{hp}, #{company})
+
+		]]>
+
+	</insert>
+	
 	
 	<!-- 수정 -->
-	<update id="update" parameterType="com.javaex.vo.PersonVo">
+	<update id="update" parameterType="PersonVo">
 	
 		<![CDATA[
 
@@ -53,11 +73,11 @@
 
 
 	<!-- 전제 가져오기 -->
-	<select id="selectList" resultType="com.javaex.vo.PersonVo">
+	<select id="selectList" resultMap="resultMapPersonVo">
 
 		<![CDATA[
 
-			select 	person_id personId, 
+			select 	person_id, 
 		    	    name, 
 		            hp, 
 		            company 
@@ -69,6 +89,22 @@
 	
 	
 	<!-- 한명 가져오기 -->
+	
+	<select id="selectOneMap" parameterType="int" resultType="map">
+
+		<![CDATA[
+
+			select 	person_id personId, 
+				    name, 
+			        hp, 
+			        company 
+			from person 
+			where person_id = #{no}
+
+		]]>
+
+	</select>
+	<!-- 
 	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.PersonVo">
 
 		<![CDATA[
@@ -83,7 +119,7 @@
 		]]>
 
 	</select>
-
+	-->
 
 
 

@@ -3,6 +3,7 @@ package com.javaex.controller;
 
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -54,24 +55,28 @@ public class PhonebookController {
 		phonebookService.exePersonEdit(personVo);
 		
 		
-		
-		
-		
-		
-		
-		
-		//System.out.println(no);
-		
-		//메소드를 이용해서 저장한다
-		//PersonVo personVo = phonebookDao.getPersonOne(Integer.parseInt(no));
-		//System.out.println("edit : " + personVo);
-		
-		//int count = phonebookDao.updatePerson(personVo);
-		//System.out.println(count);
 
 		
 		return "redirect:/list";
 	} 
+	
+	/* 수정폼2 db에서 Map으로 데이터 보내줌 */
+	@RequestMapping ( value="editform2", method= { RequestMethod.GET, RequestMethod.POST } )
+	public String editForm2 ( @RequestParam(value="no") int no , Model model) { 
+	
+		System.out.println("phonebookController.editform2()");
+		
+		Map<String, Object> personMap = phonebookService.exeGetPersonOne2(no);
+		System.out.println(personMap);
+		
+		model.addAttribute("personMap", personMap);
+		
+		
+		return "editForm2";
+	}
+	
+	
+	
 	
 	/* 수정폼 */
 	//  /editform?no=2
@@ -84,20 +89,6 @@ public class PhonebookController {
 		
 		model.addAttribute("personVo", personVo);
 		
-		
-		
-		
-		
-		
-		//System.out.println(no);
-
-		
-		//메소드를 이용해서 저장한다
-		//PersonVo personVo = phonebookDao.getPersonOne(no);
-		//System.out.println("editform: " + personVo);
-		
-		//
-		//model.addAttribute("personVo", personVo);
 		
 		return "editForm";
 		//return "/WEB-INF/views/editForm.jsp";
@@ -151,19 +142,7 @@ public class PhonebookController {
 		
 		
 		
-		
-		
-		
-		
-		
-		//System.out.println("phonebookController.write()");
-		
-		//System.out.println(personVo);
-
-		
-		//메소드를 이용해서 저장한다
-		//int count = phonebookDao.insertPerson(personVo);
-		//System.out.println(count);
+	
 		
 		//리스트로 리다이렉트
 		return "redirect:/list";
@@ -177,9 +156,6 @@ public class PhonebookController {
 						   @RequestParam(value="company") String company ) {
 		
 		System.out.println("phonebookController.write2()");
-		/*System.out.println(name);
-		System.out.println(hp);
-		System.out.println(company);*/
 		
 		PersonVo personVo = new PersonVo(name, hp, company);
 		System.out.println(personVo);
@@ -200,87 +176,12 @@ public class PhonebookController {
 		
 		
 		
-
-		
-		//메소드를 이용해서 저장한다
-		//List<PersonVo> personList = phonebookDao.getPersonList();
-		//System.out.println(personList);
-		
-		//model.addAttribute("personList", personList);
-		
-		//리스트로 리다이렉트		
-		//return "/WEB-INF/views/list.jsp";
 		return "list";
 		
 	}
 	
 	
 	
-	
-	
-	
-	
-	/*
-	
-	@RequestMapping ( value="/list", method={RequestMethod.GET, RequestMethod.POST}  )
-	public String list() {
-		
-		System.out.println("phonebookController.list()");
-		
-		return "/WEB-INF/views/list.jsp";
-		
-	}
-	
-	@RequestMapping ( value="/writeform", method={RequestMethod.GET, RequestMethod.POST}  )
-	public String writeForm() {
-		
-		System.out.println("phonebookController.writeForm()");
-		
-		return "/WEB-INF/views/writeForm.jsp";
-		
-	}
-	
-	@RequestMapping ( value="/editform", method={RequestMethod.GET, RequestMethod.POST}  )
-	public String editForm() {
-		
-		System.out.println("phonebookController.editForm()");
-		
-		return "/WEB-INF/views/editForm.jsp";
-		
-	}
-	
-	@RequestMapping ( value="/insert", method={RequestMethod.GET, RequestMethod.POST}  )
-	public String insertPerson ( @ModelAttribute PersonVo personVo ) {
-		
-		PersonVo pVo = personVo;
-		
-		
-		return "redirect:/views/list.jsp";
-	}
-	
-	
-	@RequestMapping ( value="/update/{no}", method={RequestMethod.GET, RequestMethod.POST}  )
-	public String updatePerson ( @PathVariable("no") int no ) {
-		
-		int id = no;
-		
-				
-		
-		return "redirect:/views/list.jsp";
-	}
-	
-	@RequestMapping ( value="/delete", method={RequestMethod.GET, RequestMethod.POST}  )
-	public String deletePerson ( @RequestParam(value="personid") int id ) {
-		
-		
-		
-		
-		return "redirect:/views/list.jsp";
-	}
-	
-	
-
-	*/
 	
 	
 	
