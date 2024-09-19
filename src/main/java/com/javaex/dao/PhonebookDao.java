@@ -32,6 +32,8 @@ public class PhonebookDao {
 		
 		Map<String, Object> personMap = new HashMap<String, Object>();
 		personMap.put("no", no);
+		
+		System.out.println(personMap);
 
 		
 		int count = sqlSession.delete("phonebook.delete", personMap);
