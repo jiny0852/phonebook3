@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javaex.dao.PhonebookDao;
 import com.javaex.service.PhonebookService;
@@ -97,7 +98,7 @@ public class PhonebookController {
 	
 	/* 삭제 */
 	@RequestMapping ( value="delete", method= {RequestMethod.GET, RequestMethod.POST} ) 
-	public String delete( @RequestParam(value="no") String no  ) {
+	public int delete( @RequestParam(value="no") String no  ) {
 		
 		System.out.println("phonebookController.delete()");
 		
@@ -117,7 +118,7 @@ public class PhonebookController {
 		//System.out.println(count);		
 		
 		//리스트로 리다이렉트
-		return "redirect:/list";
+		return c;
 	}
 	
 	
